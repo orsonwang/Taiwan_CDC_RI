@@ -1,17 +1,10 @@
-//
-//  CdcScript.c
-//  smartCardUtil
-//
-//  Created by arc on 2015/12/2.
-//  Copyright © 2015年 arc. All rights reserved.
-//
+// Copyright 2015 Orson Wang(orsonwang@gmail.com). All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
 
-#include "CdcScript.h"
+
+#include "CDCScript.h"
 #include "SmartCardJobs.h"
-
-#include "CdcHeader/HiSecureCert.h"
-
-#include <time.h>
 
 #define __CHCEK_STEPS_ 4
 #define __GETCERT_STEPS_ 4
@@ -37,7 +30,7 @@ BinByte* GetCertSteps[] = { InitStep, SelectCertEf1, SelectCertEf2, GetCertLengt
 int GetCertStepLens[__GETCERT_STEPS_] = { 7, 7, 7, 5};
 
 
-RtnType CheckCdc(){
+RtnType CDCCheck(){
     RtnType rtn = AITC_SUCCESS;
     BinByte receiveBuffer[MAX_RECEIVE_LEN];
     BinByte sw12[2];
@@ -64,17 +57,17 @@ RtnType CheckCdc(){
     return rtn;
 }
 
-int GetCdcCertProcedure(unsigned char* certStore, int offset, unsigned char len){
+int CDCGetCertProcedure(BinByte* certStore, int offset, BinByte len){
     int rtn = 0;
     int start = 5376 + offset;
-    unsigned char* index;
+    BinByte* index;
     index = &start;
     char sw12[4];
     
     //    printf( "tail:%02X, head:%02X\n", index[0], index[1]);
     
-    unsigned char command[] = { 0x80, 0xB0, index[1], index[0], len};
-    unsigned char receiveBuffer[256];
+    BinByte command[] = { 0x80, 0xB0, index[1], index[0], len};
+    BinByte receiveBuffer[256];
     uint32_t receiveLen = 256;
     int32_t rc = 0;
     memset( receiveBuffer, 0x00, receiveLen);
@@ -87,7 +80,7 @@ int GetCdcCertProcedure(unsigned char* certStore, int offset, unsigned char len)
 }
 
 
-RtnType GetCdcCert(char* CertContent, int* CertLength){
+RtnType CDCGetCert(char* CertContent, int* CertLength){
     RtnType rtn = AITC_SUCCESS;
     BinByte receiveBuffer[MAX_RECEIVE_LEN];
     BinByte sw12[2];
@@ -108,12 +101,12 @@ RtnType GetCdcCert(char* CertContent, int* CertLength){
         int certLen = receiveBuffer[0]*256+receiveBuffer[1] + 4;
         int chunkLen = __CHUNK_SIZE;
         int index = 0;
-        unsigned char certTmp[certLen];
+        BinByte certTmp[certLen];
         
         while(index < certLen){
             int toEndLen = certLen-index;
             chunkLen = (chunkLen<(toEndLen))?chunkLen:toEndLen;
-            GetCdcCertProcedure(certTmp+index, index, chunkLen);
+            CDCGetCertProcedure(certTmp+index, index, chunkLen);
             index += chunkLen;
         }
 
