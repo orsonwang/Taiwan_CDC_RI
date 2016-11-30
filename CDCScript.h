@@ -5,8 +5,6 @@
 //  說明:
 //  讀取自然人憑證的lib
 
-
-
 #ifndef CDCScript_h
 #define CDCScript_h
 
