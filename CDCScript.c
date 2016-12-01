@@ -30,13 +30,13 @@ int GetCertStepLens[__GETCERT_STEPS_] = { 7, 7, 7, 5};
 
 
 RtnType CDCCheck(){
-    RtnType rtn = AITC_SUCCESS;
+    RtnType rtn = COMMAND_SUCCESS;
     BinByte receiveBuffer[MAX_RECEIVE_LEN];
     BinByte sw12[2];
-    
+
 //    TODO: Error Handle
     GetCardResource();
-    
+
     for( int i = 0; i < __CHCEK_STEPS_; ++i){
         memset( receiveBuffer, 0x00, MAX_RECEIVE_LEN);
         memset( sw12, 0x00, 2);
@@ -51,7 +51,7 @@ RtnType CDCCheck(){
             rtn = NOT_CDC_CARD;
         }
     }
-    
+
     ReleaseCardResource();
     return rtn;
 }
@@ -62,30 +62,30 @@ int CDCGetCertProcedure(BinByte* certStore, int offset, BinByte len){
     BinByte* index;
     index = &start;
     char sw12[4];
-    
+
     //    printf( "tail:%02X, head:%02X\n", index[0], index[1]);
-    
+
     BinByte command[] = { 0x80, 0xB0, index[1], index[0], len};
     BinByte receiveBuffer[256];
     uint32_t receiveLen = 256;
     int32_t rc = 0;
     memset( receiveBuffer, 0x00, receiveLen);
-    
+
     rc = SendApduCommand(command, 5, receiveBuffer, sw12, MUTE);
-    
+
     memcpy( certStore, receiveBuffer, len);
-    
+
     return rtn;
 }
 
 
 RtnType CDCGetCert(char* CertContent, int* CertLength){
-    RtnType rtn = AITC_SUCCESS;
+    RtnType rtn = COMMAND_SUCCESS;
     BinByte receiveBuffer[MAX_RECEIVE_LEN];
     BinByte sw12[2];
-    
+
     GetCardResource();
-    
+
 //    取得憑證長度
     for( int i = 0; i < __GETCERT_STEPS_; ++i){
         memset( receiveBuffer, 0x00, MAX_RECEIVE_LEN);
@@ -101,7 +101,7 @@ RtnType CDCGetCert(char* CertContent, int* CertLength){
         int chunkLen = __CHUNK_SIZE;
         int index = 0;
         BinByte certTmp[certLen];
-        
+
         while(index < certLen){
             int toEndLen = certLen-index;
             chunkLen = (chunkLen<(toEndLen))?chunkLen:toEndLen;
@@ -109,9 +109,9 @@ RtnType CDCGetCert(char* CertContent, int* CertLength){
             index += chunkLen;
         }
 
+        memcpy(CertContent, certTmp, certLen);
+        *CertLength = certLen;
     }
-    memcpy(CertContent, certTmp, certLen);
-    *CertLength = certLen;
 
     ReleaseCardResource();
     return rtn;

@@ -6,6 +6,7 @@
 #define SmartCardJobs_h
 
 #include <stdio.h>
+#include <string.h>
 
 // pcsc
 #include <PCSC/WinsCard.h>
@@ -17,7 +18,7 @@
 #define MAX_RECEIVE_LEN 512
 
 
-RtnType GetCardResource();  
+RtnType GetCardResource();
 // If there's multiple readers, this function always get the card in first reader.
 // For Business use, you should provide function for user to choice which reader to read.
 
