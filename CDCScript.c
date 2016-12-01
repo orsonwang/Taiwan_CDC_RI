@@ -40,7 +40,7 @@ RtnType CDCCheck(){
     for( int i = 0; i < __CHCEK_STEPS_; ++i){
         memset( receiveBuffer, 0x00, MAX_RECEIVE_LEN);
         memset( sw12, 0x00, 2);
-        rtn = SendApduCommand(CheckSteps[i], CheckStepLens[i], receiveBuffer, sw12, MUTE);
+        rtn = SendApduCommand(CheckSteps[i], CheckStepLens[i], receiveBuffer, sw12);
         if( rtn != COMMAND_SUCCESS && rtn != CARD_SUCCESS)
             break;
     }
@@ -71,7 +71,7 @@ int CDCGetCertProcedure(BinByte* certStore, int offset, BinByte len){
     int32_t rc = 0;
     memset( receiveBuffer, 0x00, receiveLen);
 
-    rc = SendApduCommand(command, 5, receiveBuffer, sw12, MUTE);
+    rc = SendApduCommand(command, 5, receiveBuffer, sw12);
 
     memcpy( certStore, receiveBuffer, len);
 
@@ -90,7 +90,7 @@ RtnType CDCGetCert(char* CertContent, int* CertLength){
     for( int i = 0; i < __GETCERT_STEPS_; ++i){
         memset( receiveBuffer, 0x00, MAX_RECEIVE_LEN);
         memset( sw12, 0x00, 2);
-        rtn = SendApduCommand(GetCertSteps[i], GetCertStepLens[i], receiveBuffer, sw12, MUTE);
+        rtn = SendApduCommand(GetCertSteps[i], GetCertStepLens[i], receiveBuffer, sw12);
         if( rtn != COMMAND_SUCCESS && rtn != CARD_SUCCESS)
             break;
     }

@@ -24,10 +24,7 @@ RtnType GetCardResource();
 
 void ReleaseCardResource();
 
-RtnType SendApduCommandIgnoreError(BinByte *in, int len, BinByte *out, int debugMode);
-// 不處理APDU指令錯誤
-
-RtnType SendApduCommand(BinByte *in, int len, BinByte *out, BinByte *sw12, int debugMode);
+RtnType SendApduCommand(BinByte *in, int len, BinByte *out, BinByte *sw12);
 
 RtnType ListReaders();
 

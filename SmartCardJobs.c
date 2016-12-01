@@ -45,7 +45,7 @@ void ReleaseCardResource() {
     SCardReleaseContext( cardHandle);
 }
 
-RtnType SendApduCommand(BinByte *in, int len, BinByte *out, BinByte *sw12, int debugMode) {
+RtnType SendApduCommand(BinByte *in, int len, BinByte *out, BinByte *sw12) {
     RtnType rtn = 0;
 
     unsigned char receiveBuffer[MAX_RECEIVE_LEN];
