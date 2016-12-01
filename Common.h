@@ -1,13 +1,10 @@
-//
-//  Common.h
-//  smartCardUtil
-//
-//  Created by arc on 2015/12/2.
-//  Copyright © 2015年 arc. All rights reserved.
+// Copyright 2015 Orson Wang(orsonwang@gmail.com). All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
 //
 
-#ifndef Common_h
-#define Common_h
+#ifndef common_h
+#define common_h
 
 enum {
     COMMAND_SUCCESS,
@@ -23,7 +20,8 @@ enum {
 
 typedef unsigned char BinByte;
 typedef int RtnType;
-const DER_2048_FILE_SIZE = 1192;
-const DER_4096_FILE_SIZE = 2348;
 
-#endif /* Common_h */
+const int DER_2048_FILE_SIZE = 1192;
+const int DER_4096_FILE_SIZE = 2348;
+
+#endif /* common_h */

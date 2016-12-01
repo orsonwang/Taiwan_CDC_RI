@@ -1,10 +1,6 @@
-//
-//  SmartCardJobs.c
-//  smartCardUtil
-//
-//  Created by arc on 2015/12/2.
-//  Copyright © 2015年 arc. All rights reserved.
-//
+// Copyright 2015 Orson Wang(orsonwang@gmail.com). All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
 
 #include "SmartCardJobs.h"
 
