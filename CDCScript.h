@@ -15,7 +15,7 @@
 
 //  檢查是否為自然人憑證卡片
 RtnType CDCCheck();
-//  取得自然人憑證資料
-RtnType CDCGetCert(char* CertContent, int* CertLength);
+//  取得自然人憑證資料裡第二個User CA
+RtnType CDCGetCert2(char* CertContent, int* CertLength);
 
 #endif /* CDCScript_h */
